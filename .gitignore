@@ -14,3 +14,4 @@ config/dev/.env
 config/prod/.env
 *.env
 *.csv
+vector_db/
