@@ -11,4 +11,7 @@ dependencies = [
     "langchain-community>=0.3",
     "langchain-mistralai>=0.2",
     "faiss-cpu>=1.9",
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.34",
+    "httpx>=0.28",
 ]
