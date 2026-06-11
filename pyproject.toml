@@ -15,3 +15,19 @@ dependencies = [
     "uvicorn[standard]>=0.34",
     "httpx>=0.28",
 ]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.3",
+    "pytest-mock>=3.15.1",
+    "langchain-community==0.3.27",
+    "ragas==0.3.9",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+markers = [
+    "ragas: real RAGAs evaluation tests requiring Mistral API + vector_db (run with -m ragas)",
+]
+addopts = "-m \"not ragas\""

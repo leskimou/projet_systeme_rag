@@ -4,7 +4,7 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 
 from utils.chatbot import ask
-from indexer import fetch_events, build_vectorstore, events_to_dataframe
+from utils.indexer import fetch_events, build_vectorstore, events_to_dataframe
 
 app = FastAPI(
     title="RAG Events API",
@@ -49,6 +49,7 @@ def _rebuild_task(params: RebuildRequest) -> None:
         df = events_to_dataframe(events)
         vs = build_vectorstore(df)
         vs.save_local("vector_db")
+        df.to_csv("events.csv", index=False)
         rebuild_state["status"] = "ready"
         rebuild_state["events_indexed"] = len(df)
         rebuild_state["detail"] = None

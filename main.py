@@ -7,12 +7,10 @@ Lancer l'API
 
 Depuis la racine du projet :
 
-
 uvicorn api:app --reload
 Swagger disponible sur http://127.0.0.1:8000/docs
 
 Tester les endpoints avec curl
-
 
 # Vérifier l'état de la base
 curl http://127.0.0.1:8000/status
@@ -25,7 +23,7 @@ curl -X POST http://127.0.0.1:8000/ask \
 # Reconstruire la base vectorielle (paramètres optionnels)
 curl -X POST http://127.0.0.1:8000/rebuild \
   -H "Content-Type: application/json" \
-  -d "{\"city\": \"Paris\", \"max_events\": 100, \"date_from\": \"2026-01-01\"}"
+  -d "{\"city\": \"Paris\", \"max_events\": 200, \"date_from\": \"2026-01-01\"}"
 
 # Vérifier la progression du rebuild (à relancer toutes les 30s)
 curl http://127.0.0.1:8000/status
