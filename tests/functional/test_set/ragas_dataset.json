@@ -1,0 +1,92 @@
+[
+  {
+    "question": "Y a-t-il une exposition sur la Corée au Musée Guimet ?",
+    "ground_truth": "Oui, le Musée Guimet propose une visite libre de l'exposition « Silla : l'Or et le Sacré, Trésors royaux de Corée (57 av. J.-C. - 935) » le 23 mai 2026.",
+    "answer": "",
+    "contexts": []
+  },
+  {
+    "question": "Que se passe-t-il à la Gaîté Lyrique dans le cadre du Sahab Festival ?",
+    "ground_truth": "Le 6 juin 2026, la Gaîté Lyrique accueille le Sahab Festival, avec notamment « Tarab, une célébration performée » programmée par le Centre Pompidou, ainsi que des projections autour d'un imaginaire palestinien à Gaza.",
+    "answer": "",
+    "contexts": []
+  },
+  {
+    "question": "De quoi parle l'événement Héritage cosmique à la Cité des sciences ?",
+    "ground_truth": "Héritage cosmique, un hommage à Queen, est une expérience immersive proposée à la Cité des sciences et de l'Industrie du 11 janvier au 20 décembre 2026, qui rend hommage au groupe Queen à travers un voyage musical.",
+    "answer": "",
+    "contexts": []
+  },
+  {
+    "question": "La Fête des Animaux à la Cité des sciences, c'est pour quel public et à quelle période ?",
+    "ground_truth": "La Fête des Animaux se déroule à la Cité des sciences et de l'Industrie du 22 au 29 avril 2026 ; elle propose un jeu de combat avec des animaux mignons basé sur une physique imprévisible, adapté aux familles.",
+    "answer": "",
+    "contexts": []
+  },
+  {
+    "question": "Le Festival Africapitales a-t-il un événement prévu au Louxor ?",
+    "ground_truth": "Oui, le Festival Africapitales propose une séance spéciale « Au Cimetière de la pellicule » au Louxor - Palais du cinéma, le 12 mars 2026.",
+    "answer": "",
+    "contexts": []
+  },
+  {
+    "question": "Quelle pièce est jouée au Théâtre des Bouffes du Nord en mars 2026 ?",
+    "ground_truth": "Le Théâtre des Bouffes du Nord présente « Lettres non-écrites » de la Compagnie Lieux-dits / David Geselson, du 19 au 21 mars 2026.",
+    "answer": "",
+    "contexts": []
+  },
+  {
+    "question": "Y a-t-il un concert de FredOgres de Barback prévu cet été à Paris ?",
+    "ground_truth": "Oui, FredOgres de Barback se produit en concert avec Clarisse Catarino à l'accordéon, dans le spectacle « De mémoire d'Ogre ! », le 19 juillet 2026 au Théâtre de Verdure du jardin Shakespeare.",
+    "answer": "",
+    "contexts": []
+  },
+  {
+    "question": "Peut-on visiter l'exposition Jardiner en langue des signes à la Cité des sciences ?",
+    "ground_truth": "Oui, des visites en LSF (langue des signes française) de l'exposition Jardiner sont proposées à la Cité des sciences et de l'Industrie le 28 mars 2026.",
+    "answer": "",
+    "contexts": []
+  },
+  {
+    "question": "Quels concerts ont lieu à Paris prochainement ?",
+    "ground_truth": "Plusieurs concerts sont organisés à Paris dans différentes salles, comme la Gaîté Lyrique ou le Théâtre de Verdure du jardin Shakespeare.",
+    "answer": "",
+    "contexts": []
+  },
+  {
+    "question": "Quelles expositions peut-on visiter à Paris en ce moment ?",
+    "ground_truth": "Paris propose plusieurs expositions, notamment au Musée Guimet et à la Cité des sciences et de l'Industrie.",
+    "answer": "",
+    "contexts": []
+  },
+  {
+    "question": "Quels festivals se déroulent à Paris cet été ?",
+    "ground_truth": "Des festivals culturels, comme le Sahab Festival ou des concerts en plein air, sont organisés à Paris durant l'été.",
+    "answer": "",
+    "contexts": []
+  },
+  {
+    "question": "Quels événements culturels sont prévus pour les familles à Paris ?",
+    "ground_truth": "Des événements adaptés aux familles sont organisés à Paris, comme La Fête des Animaux à la Cité des sciences et de l'Industrie.",
+    "answer": "",
+    "contexts": []
+  },
+  {
+    "question": "Quelle est la recette de la tarte Tatin ?",
+    "ground_truth": "Cette question ne concerne pas les événements culturels et publics à Paris ; l'assistant n'a pas d'information à ce sujet dans sa base de connaissances.",
+    "answer": "",
+    "contexts": []
+  },
+  {
+    "question": "Quel temps fera-t-il à Paris demain ?",
+    "ground_truth": "L'assistant n'a pas accès aux prévisions météorologiques ; sa base de connaissances ne couvre que les événements culturels et publics à Paris, il ne peut donc pas répondre à cette question.",
+    "answer": "",
+    "contexts": []
+  },
+  {
+    "question": "Peux-tu me donner les résultats du dernier match du PSG ?",
+    "ground_truth": "Cette question porte sur des résultats sportifs et non sur des événements culturels ; l'assistant n'a pas d'information à ce sujet dans sa base de connaissances.",
+    "answer": "",
+    "contexts": []
+  }
+]

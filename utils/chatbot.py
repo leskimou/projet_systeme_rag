@@ -46,18 +46,22 @@ def load_vectorstore(vectorstore_path: str = "vector_db") -> FAISS:
     return FAISS.load_local(vectorstore_path, embeddings, allow_dangerous_deserialization=True)
 
 
-def build_chain(vectorstore: FAISS, k: int = 4):
-    # Construit la chaîne RAG : retriever → prompt → LLM → texte
-    retriever = vectorstore.as_retriever(search_kwargs={"k": k})
-    llm = ChatMistralAI(
+def _build_llm() -> ChatMistralAI:
+    # Construit le client LLM Mistral utilisé pour générer les réponses
+    return ChatMistralAI(
         api_key=os.getenv("MISTRAL_API_KEY", ""),
         model="mistral-large-latest",
         temperature=0.2,
     )
+
+
+def build_chain(vectorstore: FAISS, k: int = 4):
+    # Construit la chaîne RAG : retriever → prompt → LLM → texte
+    retriever = vectorstore.as_retriever(search_kwargs={"k": k})
     chain = (
         {"context": retriever | _format_docs, "question": RunnablePassthrough()}
         | PROMPT
-        | llm
+        | _build_llm()
         | StrOutputParser()
     )
     return chain
@@ -68,3 +72,15 @@ def ask(question: str, vectorstore_path: str = "vector_db", k: int = 4) -> str:
     vs = load_vectorstore(vectorstore_path)
     chain = build_chain(vs, k=k)
     return chain.invoke(question)
+
+
+def ask_with_context(question: str, vectorstore_path: str = "vector_db", k: int = 4) -> tuple[str, list[str]]:
+    # Comme ask(), mais retourne aussi le texte brut des documents récupérés (pour l'évaluation RAGAs).
+    # Le retriever n'est appelé qu'une fois (contre deux dans build_chain) : un seul appel
+    # d'embedding + un seul appel de complétion, pour limiter les requêtes à l'API Mistral.
+    vs = load_vectorstore(vectorstore_path)
+    retriever = vs.as_retriever(search_kwargs={"k": k})
+    docs = retriever.invoke(question)
+    prompt_value = PROMPT.invoke({"context": _format_docs(docs), "question": question})
+    response = _build_llm().invoke(prompt_value)
+    return response.content, [doc.page_content for doc in docs]
