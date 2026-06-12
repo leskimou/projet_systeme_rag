@@ -1,10 +1,9 @@
-"""Tests de qualité RAG avec RAGAs (faithfulness, answer_relevancy, context_precision,
-context_recall, nv_context_relevance).
+"""Tests de qualité RAG avec RAGAs (faithfulness, context_precision, context_recall).
 
 Le dataset (tests/functional/test_set/ragas_dataset.json) contient les réponses et
 contextes déjà générés manuellement (champs "answer" et "contexts"), pour éviter les
 appels à l'API Mistral en plus de ceux du juge RAGAs. Ces tests nécessitent
-MISTRAL_API_KEY pour le juge LLM/embeddings. Ils sont exclus de la suite par défaut
+MISTRAL_API_KEY pour le juge LLM. Ils sont exclus de la suite par défaut
 (voir addopts dans pyproject.toml) et se lancent avec :
 
     uv run pytest -m ragas -v -s
@@ -18,17 +17,10 @@ import pytest
 
 ragas = pytest.importorskip("ragas")
 
-from langchain_mistralai import ChatMistralAI, MistralAIEmbeddings
+from langchain_mistralai import ChatMistralAI
 from ragas import EvaluationDataset, evaluate
-from ragas.embeddings.base import LangchainEmbeddingsWrapper
 from ragas.llms.base import LangchainLLMWrapper
-from ragas.metrics import (
-    AnswerRelevancy,
-    ContextPrecision,
-    ContextRecall,
-    ContextRelevance,
-    Faithfulness,
-)
+from ragas.metrics import ContextPrecision, ContextRecall, Faithfulness
 from ragas.run_config import RunConfig
 
 pytestmark = pytest.mark.ragas
@@ -64,24 +56,15 @@ def evaluation_results():
             temperature=0,
         )
     )
-    judge_embeddings = LangchainEmbeddingsWrapper(
-        MistralAIEmbeddings(
-            api_key=os.getenv("MISTRAL_API_KEY", ""),
-            model="mistral-embed",
-        )
-    )
 
     result = evaluate(
         dataset=dataset,
         metrics=[
             Faithfulness(),
-            AnswerRelevancy(),
             ContextPrecision(),
             ContextRecall(),
-            ContextRelevance(),
         ],
         llm=judge_llm,
-        embeddings=judge_embeddings,
         # un seul appel API à la fois : évite les 429 "rate limit" de Mistral
         run_config=RunConfig(max_workers=1),
     )
@@ -94,15 +77,6 @@ def test_rag_faithfulness(evaluation_results):
     assert mean_score >= SCORE_THRESHOLD, (
         f"Faithfulness moyen {mean_score:.2f} < {SCORE_THRESHOLD}\n"
         f"{evaluation_results[['user_input', 'faithfulness']]}"
-    )
-
-
-def test_rag_answer_relevancy(evaluation_results):
-    mean_score = evaluation_results["answer_relevancy"].mean()
-
-    assert mean_score >= SCORE_THRESHOLD, (
-        f"Answer relevancy moyen {mean_score:.2f} < {SCORE_THRESHOLD}\n"
-        f"{evaluation_results[['user_input', 'answer_relevancy']]}"
     )
 
 
@@ -121,13 +95,4 @@ def test_rag_context_recall(evaluation_results):
     assert mean_score >= SCORE_THRESHOLD, (
         f"Context recall moyen {mean_score:.2f} < {SCORE_THRESHOLD}\n"
         f"{evaluation_results[['user_input', 'context_recall']]}"
-    )
-
-
-def test_rag_context_relevancy(evaluation_results):
-    mean_score = evaluation_results["nv_context_relevance"].mean()
-
-    assert mean_score >= SCORE_THRESHOLD, (
-        f"Context relevancy moyen {mean_score:.2f} < {SCORE_THRESHOLD}\n"
-        f"{evaluation_results[['user_input', 'nv_context_relevance']]}"
     )

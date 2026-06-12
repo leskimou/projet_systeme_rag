@@ -1,8 +1,42 @@
-from utils.chatbot import ask
+import json
+import sys
+import time
+from pathlib import Path
 
-reponse = ask("Quels concerts de rap ont lieu à Paris ?")
-print(reponse)
-""""
+from utils.chatbot import ask_with_context
+
+DATASET_PATH = Path("tests/functional/test_set/ragas_dataset.json")
+
+# Numéros de questions à traiter (1-indexés, inclusifs).
+# Usage : python main.py [debut] [fin]  ->  ex. python main.py 1 4
+START = int(sys.argv[1]) if len(sys.argv) > 1 else 1
+END = int(sys.argv[2]) if len(sys.argv) > 2 else None
+
+with open(DATASET_PATH, encoding="utf-8") as f:
+    samples = json.load(f)
+
+end = END if END is not None else len(samples)
+
+for i in range(START, end + 1):
+    sample = samples[i - 1]
+    print(f"\n[{i}/{len(samples)}] Question : {sample['question']}")
+    answer, contexts = ask_with_context(sample["question"])
+    sample["answer"] = answer
+    sample["contexts"] = contexts
+
+    print(f"Réponse : {answer}")
+    print("Contextes récupérés :")
+    for j, ctx in enumerate(contexts, 1):
+        print(f"  [{j}] {ctx}")
+
+    # Sauvegarde après chaque question pour ne rien perdre en cas de quota dépassé
+    with open(DATASET_PATH, "w", encoding="utf-8") as f:
+        json.dump(samples, f, ensure_ascii=False, indent=2)
+
+    if i < end:
+        time.sleep(2)  # limite le débit d'appels à l'API Mistral
+
+"""
 Lancer l'API
 
 Depuis la racine du projet :
