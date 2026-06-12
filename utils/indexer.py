@@ -95,27 +95,45 @@ def events_to_dataframe(events: list[dict]) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
+def format_event_header(row: pd.Series) -> str:
+    # En-tête (titre, lieu, dates) répété sur chaque chunk, pour qu'il reste
+    # exploitable même une fois la description découpée
+    lieu = ", ".join(p for p in [row["location_name"], row["city"]] if p)
+    debut, fin = row["date_begin"], row["date_end"]
+    dates = f"{debut} → {fin}" if fin and debut != fin else debut
+
+    lines = [f"Titre: {row['title']}"]
+    if lieu:
+        lines.append(f"Lieu: {lieu}")
+    if dates:
+        lines.append(f"Dates: {dates}")
+    return "\n".join(lines)
+
+
 def build_vectorstore(df: pd.DataFrame, chunk_size: int = 500, chunk_overlap: int = 50) -> FAISS:
-    # Crée les documents LangChain à partir du DataFrame
-    docs = [
-        Document(
-            page_content=row["text"],
-            metadata={
-                "uid": row["uid"],
-                "title": row["title"],
-                "description": row["description"],
-                "city": row["city"],
-                "location_name": row["location_name"],
-                "date_begin": row["date_begin"],
-                "date_end": row["date_end"],
-            },
-        )
-        for _, row in df.iterrows()
-        if str(row["text"]).strip()
-    ]
-    # Découpe les textes longs en chunks avant l'embedding
+    # Découpe la description de chaque événement, en préfixant chaque chunk
+    # par son en-tête (titre/lieu/dates) pour qu'il reste auto-suffisant
     splitter = RecursiveCharacterTextSplitter(chunk_size=chunk_size, chunk_overlap=chunk_overlap)
-    docs = splitter.split_documents(docs)
+
+    docs = []
+    for _, row in df.iterrows():
+        header = format_event_header(row)
+        description = str(row["description"]).strip()
+        metadata = {
+            "uid": row["uid"],
+            "title": row["title"],
+            "description": row["description"],
+            "city": row["city"],
+            "location_name": row["location_name"],
+            "date_begin": row["date_begin"],
+            "date_end": row["date_end"],
+        }
+
+        chunks = splitter.split_text(description) if description else [""]
+        for chunk in chunks:
+            content = f"{header}\nDescription: {chunk}" if chunk else header
+            docs.append(Document(page_content=content, metadata=metadata))
+
     embeddings = MistralAIEmbeddings(
         api_key=os.getenv("MISTRAL_API_KEY", ""),
         model="mistral-embed",
