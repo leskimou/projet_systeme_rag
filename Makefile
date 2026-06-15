@@ -26,7 +26,7 @@ test:
 
 ## Lance les tests d'évaluation RAGAs (vrais appels à l'API Mistral, nécessite vector_db/)
 ragastest:
-	uv run pytest -m ragas
+	uv run pytest -m ragas -v -s
 
 ## Reconstruit la base vectorielle (API doit être lancée)
 rebuild:

@@ -77,61 +77,6 @@
     ]
   },
   {
-    "question": "Peut-on visiter l'exposition Jardiner en langue des signes à la Cité des sciences ?",
-    "ground_truth": "Oui, des visites en LSF (langue des signes française) de l'exposition Jardiner sont proposées à la Cité des sciences et de l'Industrie le 28 mars 2026.",
-    "answer": "Oui, vous pouvez visiter l'exposition **Jardiner** en langue des signes française (LSF) à la **Cité des sciences et de l'Industrie** à Paris.\n\n**Événement :** *Visites en LSF de l'exposition Jardiner*\n**Date :** 28 mars 2026\n**Description :** Une promenade enchantée où chaque pas vous emmène dans un monde merveilleux.\n\nN'hésitez pas à vérifier les horaires et modalités d'inscription directement sur le site de la Cité des sciences pour préparer votre visite.",
-    "contexts": [
-      "Titre: Visites en LSF de l'exposition Jardiner\nLieu: Cité des sciences et de l'Industrie, Paris\nDates: 2026-03-28\nDescription: Participez à une promenade enchantée où chaque pas vous emmène dans un monde merveilleux.",
-      "Titre: Secrets de fleurs\nLieu: Cité des sciences et de l'Industrie, Paris\nDates: 2026-05-23 → 2026-05-24\nDescription: Le printemps est là !",
-      "Titre: Parcours de l'esprit critique\nLieu: Cité des sciences et de l'Industrie, Paris\nDates: 2026-03-21 → 2026-04-05\nDescription: Venez mettre à l’épreuve votre esprit critique en explorant un parcours d’une douzaine de stands animés par des scientifiques, chercheurs et médiateurs, avec des expériences, quiz, défis...",
-      "Titre: Zoom : si c'est gratuit c'est vous le produit !\nLieu: Cité des sciences et de l'Industrie, Paris\nDates: 2026-04-25\nDescription: Entre free-to-play, DLC (downloadable content, contenu téléchargeable additionnel) et pay-to-win, l’industrie du jeu vidéo diversifie ses modèles économiques."
-    ]
-  },
-  {
-    "question": "Quels concerts ont lieu à Paris prochainement ?",
-    "ground_truth": "Plusieurs concerts sont organisés à Paris dans différentes salles, comme la Gaîté Lyrique ou le Théâtre de Verdure du jardin Shakespeare.",
-    "answer": "Voici les concerts et événements musicaux à venir à Paris selon mes données :\n\n1. **Club Tropicalia ~ Afro vibes, Latino, Caribbean & Brazil Party**\n   - **Lieu** : Punk Paradise (Paris 11ᵉ)\n   - **Date** : 18 avril 2026\n   - **Description** : Soirée clubbing avec des sons latinos, afro, reggaeton, caribéens, baile funk et brésiliens.\n\n2. **METROPOLIS VIBRATION en live session**\n   - **Lieu** : Parc André Citroën (Paris 15ᵉ)\n   - **Date** : 21 juin 2026\n   - **Description** : Concert live (détails du programme non précisés).\n\n3. **Culture Rapide**\n   - **Lieu** : Place Fréhel (Paris 20ᵉ)\n   - **Date** : 21 juin 2026\n   - **Description** : Musique live et spoken word.\n\n4. **Héritage cosmique, un hommage à Queen** *(expérience immersive)*\n   - **Lieu** : Cité des sciences et de l'Industrie (Paris 19ᵉ)\n   - **Dates** : Du 11 janvier au 20 décembre 2026\n   - **Description** : Voyage musical immersif en hommage à Queen.\n\nSi tu cherches un style particulier ou des dates plus proches, fais-le-moi savoir ! 🎶",
-    "contexts": [
-      "Titre: Héritage cosmique, un hommage à Queen\nLieu: Cité des sciences et de l'Industrie, Paris\nDates: 2026-01-11 → 2026-12-20\nDescription: Vivez une nouvelle expérience immersive exceptionnelle : Héritage Cosmique, le voyage musical qui rend hommage au légendaire groupe Queen.",
-      "Titre: METROPOLIS VIBRATION en live session\nLieu: Parc André Citroën, Paris\nDates: 2026-06-21\nDescription: Tu habites le 14e arrondissement ou le 15e...",
-      "Titre: Culture Rapide\nLieu: Place Fréhel 75020, Paris\nDates: 2026-06-21\nDescription: Que de la bonne musique live et du spoken word",
-      "Titre: Club Tropicalia ~ Afro vibes, Latino, Caribbean & Brazil Party à Paris 11 !!\nLieu: Punk Paradise, Paris\nDates: 2026-04-18\nDescription: Clubbing Latino, Afro vibes, Reggaeton, Caribbean, Baile, Brazil au Punk Paradise de 23h à l'aube à Paris 11 !"
-    ]
-  },
-  {
-    "question": "Quelles expositions peut-on visiter à Paris en ce moment ?",
-    "ground_truth": "Paris propose plusieurs expositions, notamment au Musée Guimet et à la Cité des sciences et de l'Industrie.",
-    "answer": "D'après les informations disponibles dans ma base de connaissances, voici les expositions que vous pouvez visiter à Paris **en mars et mai 2026** (les événements passés ou trop lointains ne sont pas inclus) :\n\n### **1. Exposition \"Jardiner\" – Cité des sciences et de l'Industrie**\n- **Dates** : Jusqu'au **5 avril 2026** (visites en LSF le **28 mars 2026**)\n- **Description** : Une promenade immersive dans un univers végétal et poétique.\n- **Lien avec l'esprit critique** : Un parcours complémentaire, *\"Parcours de l'esprit critique\"*, est proposé du **21 mars au 5 avril 2026** (expériences, quiz et défis scientifiques).\n\n### **2. Découverte des collections du Musée de l'Homme**\n- **Date** : **23 mai 2026** (visite libre)\n- **Description** : Exploration des collections permanentes du musée, axées sur l'évolution humaine, l'anthropologie et la biodiversité.\n\n---\n**À noter** :\n- L'exposition *\"PHOTO-ART Paris\"* à la Galerie 24B n'aura lieu qu'en **novembre 2026** (trop tardive pour une visite actuelle).\n- Si vous cherchez des événements **avant mars 2026**, je n'ai pas d'informations disponibles.\n\nSouhaitez-vous des précisions sur l'une de ces expositions ?",
-    "contexts": [
-      "Titre: PHOTO-ART Paris\nLieu: Galerie 24B, Paris\nDates: 2026-11-19 → 2026-11-29\nDescription: Regards contemporains sur la photographie Fine Art",
-      "Titre: Visites en LSF de l'exposition Jardiner\nLieu: Cité des sciences et de l'Industrie, Paris\nDates: 2026-03-28\nDescription: Participez à une promenade enchantée où chaque pas vous emmène dans un monde merveilleux.",
-      "Titre: Venez découvrir les collections du Musée de l'Homme !\nLieu: Musée de l'homme, Paris\nDates: 2026-05-23\nDescription: Visite libre",
-      "Titre: Parcours de l'esprit critique\nLieu: Cité des sciences et de l'Industrie, Paris\nDates: 2026-03-21 → 2026-04-05\nDescription: Venez mettre à l’épreuve votre esprit critique en explorant un parcours d’une douzaine de stands animés par des scientifiques, chercheurs et médiateurs, avec des expériences, quiz, défis..."
-    ]
-  },
-  {
-    "question": "Quels festivals se déroulent à Paris cet été ?",
-    "ground_truth": "Des festivals culturels, comme le Sahab Festival ou des concerts en plein air, sont organisés à Paris durant l'été.",
-    "answer": "D'après les informations disponibles dans ma base de connaissances, voici un événement qui se déroulera à Paris **en juin 2026** (proche de l'été) :\n\n### **[Culture Rapide](https://www.example.com)**\n- **Lieu** : Place Fréhel, 75020 Paris\n- **Date** : 21 juin 2026\n- **Description** : Une soirée dédiée à la musique live et au *spoken word* (poésie orale, performances artistiques).\n\n---\n\n**Malheureusement**, je n'ai pas d'autres événements **estivaux** (juillet/août 2026) répertoriés dans ma base pour Paris. Les autres festivals listés se déroulent en **mars, avril** ou sont trop éloignés dans le temps.\n\nSi tu cherches des événements pour **l'été 2024 ou 2025**, je te conseille de consulter des plateformes comme :\n- [Paris Info (Office du Tourisme)](https://www.parisinfo.com/)\n- [Time Out Paris](https://www.timeout.fr/paris)\n- [Sortir à Paris](https://www.sortiraparis.com/)\n\nTu cherches un type d'événement en particulier (musique, cinéma, arts de rue, etc.) ? Je peux t'aider à affiner ta recherche !",
-    "contexts": [
-      "Titre: Culture Rapide\nLieu: Place Fréhel 75020, Paris\nDates: 2026-06-21\nDescription: Que de la bonne musique live et du spoken word",
-      "Titre: Club Tropicalia ~ Afro vibes, Latino, Caribbean & Brazil Party à Paris 11 !!\nLieu: Punk Paradise, Paris\nDates: 2026-04-18\nDescription: Clubbing Latino, Afro vibes, Reggaeton, Caribbean, Baile, Brazil au Punk Paradise de 23h à l'aube à Paris 11 !",
-      "Titre: FESTIVAL AFRICAPITALES · Au Cimetière de la pellicule\nLieu: Le Louxor - Palais du cinéma, Paris\nDates: 2026-03-12\nDescription: Séance spéciale",
-      "Titre: Festival MVP 11 après-midi - MONOPRIX\nLieu: Paris - Agence Clichy-la-Garenne, Paris\nDates: 2026-04-11\nDescription: C'est le grand rendez-vous gratuit et grand public de référence pour aider chacun à trouver sa voie vers la réussite où seront mis à l'honneur : Les formations Les métiers Les rencontres avec des entr"
-    ]
-  },
-  {
-    "question": "Quels événements culturels sont prévus pour les familles à Paris ?",
-    "ground_truth": "Des événements adaptés aux familles sont organisés à Paris, comme La Fête des Animaux à la Cité des sciences et de l'Industrie.",
-    "answer": "D'après les informations disponibles dans ma base de connaissances, je n'ai pas d'événements culturels spécifiquement dédiés aux familles à Paris pour les dates mentionnées.\n\nCependant, voici quelques suggestions générales pour des événements familiaux à Paris (hors données actuelles) :\n- **Expositions interactives** (comme à la Cité des Sciences ou au Musée en Herbe)\n- **Spectacles jeune public** (théâtres comme le Théâtre des Marionnettes du Jardin du Luxembourg)\n- **Ateliers créatifs** (dans les médiathèques ou centres culturels)\n\nSi vous cherchez un type d'événement précis (concerts, contes, etc.), je peux essayer de vous orienter vers des lieux habituels. 😊\n\n*(Pour rappel, mes données s'arrêtent en 2026 et ne couvrent pas tous les événements.)*",
-    "contexts": [
-      "Titre: Culture Rapide\nLieu: Place Fréhel 75020, Paris\nDates: 2026-06-21\nDescription: Que de la bonne musique live et du spoken word",
-      "Titre: Opportunités d'emploi : 8 entreprises dans l'hôtellerie et la restauration recrutent et vous donnent rendez-vous !\nLieu: Agence Paris 15eme Brancion, Paris\nDates: 2026-01-29\nDescription: 8 hôtels & restaurants parisiens recrutent et vous invitent à les rencontrer lors d'un JOB DATING EXCEPTIONNEL qui aura lieu le 4 février dans un très bel endroit à Paris.",
-      "Titre: Festival MVP 11 après-midi - MONOPRIX\nLieu: Paris - Agence Clichy-la-Garenne, Paris\nDates: 2026-04-11\nDescription: C'est le grand rendez-vous gratuit et grand public de référence pour aider chacun à trouver sa voie vers la réussite où seront mis à l'honneur : Les formations Les métiers Les rencontres avec des entr",
-      "Titre: FORUM DE L'EMPLOI MAIRIE DU 20e - La Ville de Paris recrute des Agents polyvalents de crèche (F/H) CDI\nLieu: Agence Paris 20eme Vitruve, Paris\nDates: 2026-06-08\nDescription: Vous aimez cuisiner ? Vous appréciez le travail en équipe tout en faisant preuve d'autonomie ?"
-    ]
-  },
-  {
     "question": "Quelle est la recette de la tarte Tatin ?",
     "ground_truth": "Cette question ne concerne pas les événements culturels et publics à Paris ; l'assistant n'a pas d'information à ce sujet dans sa base de connaissances.",
     "answer": "Je suis spécialisé dans les événements culturels et publics à Paris, je n'ai donc pas d'informations sur les recettes de cuisine comme la tarte Tatin.\n\nCependant, voici une suggestion d'événement à Paris lié à la gastronomie si cela vous intéresse :\n- **\"Coaching et recrutement avec un professionnel - Hôtellerie / Restauration / Métiers de bouche\"** (24 avril 2026) à l'Agence Paris 7/8/9ème St Petersbourg. Un événement pour découvrir les métiers de bouche et peut-être échanger avec des professionnels sur des recettes emblématiques !\n\nSi vous cherchez une recette, je vous conseille de consulter un site culinaire ou un livre de cuisine. 😊",

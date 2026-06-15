@@ -80,7 +80,7 @@ def test_events_to_dataframe_returns_empty_dataframe_for_no_events():
     assert df.empty
 
 
-@patch("indexer.requests.get")
+@patch("utils.indexer.requests.get")
 def test_fetch_events_returns_records_from_single_page(mock_get):
     mock_response = MagicMock()
     mock_response.json.return_value = {
@@ -99,7 +99,7 @@ def test_fetch_events_returns_records_from_single_page(mock_get):
     mock_get.assert_called_once()
 
 
-@patch("indexer.requests.get")
+@patch("utils.indexer.requests.get")
 def test_fetch_events_paginates_until_max_events_reached(mock_get):
     page1 = MagicMock()
     page1.json.return_value = {
@@ -123,7 +123,7 @@ def test_fetch_events_paginates_until_max_events_reached(mock_get):
     assert mock_get.call_count == 2
 
 
-@patch("indexer.requests.get")
+@patch("utils.indexer.requests.get")
 def test_fetch_events_stops_when_no_records_returned(mock_get):
     empty_page = MagicMock()
     empty_page.json.return_value = {"nhits": 0, "records": []}
