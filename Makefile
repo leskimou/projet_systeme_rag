@@ -3,17 +3,18 @@ CONTAINER_NAME := rag-events-api
 API_URL       := http://127.0.0.1:8000
 QUESTION      ?= Quels concerts ont lieu à Paris ?
 
-.PHONY: build run stop test ragastest rebuild ask status
+.PHONY: build run stop test ragastest rebuild ask status refreshragas
 
 ## Construit l'image Docker
 build:
 	docker build -t $(IMAGE_NAME) .
 
-## Lance le conteneur (clé API lue depuis config/dev/.env, index persisté dans un volume)
+## Lance le conteneur (clé API lue depuis config/dev/.env, index et cache HF persistés dans des volumes)
 run:
 	docker run --rm -p 8000:8000 --name $(CONTAINER_NAME) \
 		--env-file config/dev/.env \
 		-v vector_db_data:/app/vector_db \
+		-v hf_cache:/root/.cache/huggingface \
 		$(IMAGE_NAME)
 
 ## Arrête le conteneur
@@ -43,3 +44,7 @@ ask:
 ## Affiche l'état de la base vectorielle
 status:
 	curl $(API_URL)/status
+
+## Régénère les réponses/contextes du dataset RAGAs (vrais appels à l'API Mistral)
+refreshragas:
+	uv run python -m utils.ragas_ask

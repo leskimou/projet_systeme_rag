@@ -1,11 +1,11 @@
-import os
 import requests
 import pandas as pd
 from dotenv import load_dotenv
 from langchain_community.vectorstores import FAISS
-from langchain_mistralai import MistralAIEmbeddings
 from langchain_core.documents import Document
 from langchain_text_splitters import RecursiveCharacterTextSplitter
+
+from utils.embeddings import get_embeddings
 
 load_dotenv("config/dev/.env")
 
@@ -134,11 +134,7 @@ def build_vectorstore(df: pd.DataFrame, chunk_size: int = 500, chunk_overlap: in
             content = f"{header}\nDescription: {chunk}" if chunk else header
             docs.append(Document(page_content=content, metadata=metadata))
 
-    embeddings = MistralAIEmbeddings(
-        api_key=os.getenv("MISTRAL_API_KEY", ""),
-        model="mistral-embed",
-    )
-    return FAISS.from_documents(docs, embeddings)
+    return FAISS.from_documents(docs, get_embeddings())
 
 
 def main():
