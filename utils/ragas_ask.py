@@ -2,7 +2,7 @@ import json
 import time
 from pathlib import Path
 
-from chatbot import ask_with_context
+from utils.chatbot import ask_with_context
 
 
 DATASET_PATH = Path("tests/functional/test_set/ragas_dataset.json")

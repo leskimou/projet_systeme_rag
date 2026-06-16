@@ -2,7 +2,8 @@
 
 Système RAG (Retrieval-Augmented Generation) qui répond à des questions sur les
 événements culturels et publics parisiens, en s'appuyant sur les données ouvertes
-d'OpenDataSoft, une base vectorielle FAISS et les modèles Mistral AI.
+d'OpenDataSoft, une base vectorielle FAISS, le modèle d'embedding F2LLM-v2-4B
+(exécuté localement) et le LLM Mistral.
 
 ## Architecture
 
@@ -19,9 +20,14 @@ versionnés).
 
 ## Prérequis
 
-- Une clé API Mistral (variable d'environnement `MISTRAL_API_KEY`)
+- Une clé API Mistral (variable d'environnement `MISTRAL_API_KEY`), utilisée pour le
+  LLM de génération de réponses
 - [uv](https://docs.astral.sh/uv/) pour l'installation locale, ou Docker pour
   l'exécution conteneurisée
+- Les embeddings (`codefuse-ai/F2LLM-v2-4B`) tournent localement via
+  `sentence-transformers` : aucune clé API requise, mais le modèle (~8 Go) est
+  téléchargé depuis Hugging Face au premier lancement et mis en cache dans
+  `~/.cache/huggingface`
 
 ## Installation et lancement en local (avec uv)
 
@@ -56,9 +62,11 @@ docker build -t rag-events-api .
 La clé API est fournie au lancement, jamais intégrée à l'image. Un volume persiste
 `vector_db/` entre les redémarrages : au premier démarrage, si `vector_db/` est vide,
 l'index est construit automatiquement (événements parisiens à partir de 2026-01-01).
+Un second volume persiste le cache Hugging Face (`hf_cache`) pour éviter de
+retélécharger le modèle d'embedding (~8 Go) à chaque redémarrage.
 
 ```bash
-docker run -p 8000:8000 -e MISTRAL_API_KEY=votre_clé_api -v vector_db_data:/app/vector_db rag-events-api
+docker run -p 8000:8000 -e MISTRAL_API_KEY=votre_clé_api -v vector_db_data:/app/vector_db -v hf_cache:/root/.cache/huggingface rag-events-api
 ```
 
 Sous PowerShell (Windows), pour répartir la commande sur plusieurs lignes,
@@ -67,6 +75,7 @@ Sous PowerShell (Windows), pour répartir la commande sur plusieurs lignes,
 docker run -p 8000:8000 `
   -e MISTRAL_API_KEY=votre_clé_api `
   -v vector_db_data:/app/vector_db `
+  -v hf_cache:/root/.cache/huggingface `
   rag-events-api
 ```
 
@@ -112,7 +121,7 @@ Suivre la progression avec `GET /status` (statut `building` puis `ready`).
 
 | Variable          | Description                                    |
 | ----------------- | ----------------------------------------------- |
-| `MISTRAL_API_KEY` | Clé API Mistral, utilisée pour les embeddings et le LLM |
+| `MISTRAL_API_KEY` | Clé API Mistral, utilisée pour le LLM de génération |
 
 ## Tests
 
