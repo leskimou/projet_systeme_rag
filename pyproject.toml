@@ -8,4 +8,40 @@ dependencies = [
     "requests>=2.32",
     "pandas>=2.2",
     "python-dotenv>=1.0",
+    "langchain-community>=0.3",
+    "langchain-mistralai>=0.2",
+    "langchain-google-genai>=2.0",
+    "langchain-anthropic>=0.3",
+    "langchain-huggingface>=0.1",
+    "sentence-transformers>=3.0",
+    "torch>=2.0",
+    "faiss-cpu>=1.9",
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.34",
+    "httpx>=0.28",
 ]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.3",
+    "pytest-mock>=3.15.1",
+    "langchain-community==0.3.27",
+    "ragas==0.3.9",
+]
+
+[tool.uv.sources]
+# Évite d'installer les dépendances CUDA de torch (inutiles en CPU-only)
+torch = [{ index = "pytorch-cpu" }]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+markers = [
+    "ragas: real RAGAs evaluation tests requiring Mistral API + vector_db (run with -m ragas)",
+]
+addopts = "-m \"not ragas\""
