@@ -1,6 +1,6 @@
 from langchain_huggingface import HuggingFaceEmbeddings
 
-EMBEDDING_MODEL = "codefuse-ai/F2LLM-v2-4B"
+EMBEDDING_MODEL = "codefuse-ai/F2LLM-v2-0.6B"
 
 def get_embeddings() -> HuggingFaceEmbeddings:
     # F2LLM-v2 distingue requêtes et documents : encode_query() préfixe le texte

@@ -2,8 +2,8 @@
 
 Système RAG (Retrieval-Augmented Generation) qui répond à des questions sur les
 événements culturels et publics parisiens, en s'appuyant sur les données ouvertes
-d'OpenDataSoft, une base vectorielle FAISS, le modèle d'embedding F2LLM-v2-4B
-(exécuté localement) et le LLM Mistral.
+d'OpenDataSoft, une base vectorielle FAISS, le modèle d'embedding F2LLM-v2-0.6B
+(exécuté localement) et le LLM Mistral (`mistral-small-latest`).
 
 ## Architecture
 
@@ -11,7 +11,7 @@ d'OpenDataSoft, une base vectorielle FAISS, le modèle d'embedding F2LLM-v2-4B
 utils/indexer.py   -> récupère les événements (API OpenDataSoft) et construit l'index FAISS
 utils/chatbot.py   -> chaîne RAG : retriever -> prompt -> LLM Mistral -> réponse
 api.py             -> API FastAPI (endpoints /ask, /rebuild, /status)
-main.py            -> script d'évaluation RAGAs (génère réponses + contextes du dataset de test)
+utils/ragas_ask.py -> script d'évaluation RAGAs (génère réponses + contextes du dataset de test)
 ```
 
 L'index vectoriel est stocké dans `vector_db/` et un export des événements indexés
@@ -20,68 +20,36 @@ versionnés).
 
 ## Prérequis
 
+- Docker
 - Une clé API Mistral (variable d'environnement `MISTRAL_API_KEY`), utilisée pour le
-  LLM de génération de réponses
-- [uv](https://docs.astral.sh/uv/) pour l'installation locale, ou Docker pour
-  l'exécution conteneurisée
-- Les embeddings (`codefuse-ai/F2LLM-v2-4B`) tournent localement via
-  `sentence-transformers` : aucune clé API requise, mais le modèle (~8 Go) est
-  téléchargé depuis Hugging Face au premier lancement et mis en cache dans
-  `~/.cache/huggingface`
+  LLM de génération de réponses et les LLM juges des tests RAGAs
+- Les embeddings (`codefuse-ai/F2LLM-v2-0.6B`) tournent localement via
+  `sentence-transformers` : aucune clé API requise, mais le modèle (~1,2 Go) est
+  téléchargé depuis Hugging Face au premier lancement et mis en cache dans un volume
+  Docker
 
-## Installation et lancement en local (avec uv)
+## Installation et lancement
 
-```bash
-uv sync
-```
-
-Créer un fichier `config/dev/.env` avec :
+Créer un fichier `config/dev/.env` à la racine du projet avec :
 
 ```
 MISTRAL_API_KEY=votre_clé_api
 ```
 
-Lancer l'API :
+Construire l'image puis lancer le conteneur :
 
 ```bash
-uv run uvicorn api:app --reload
+make build
+make run
 ```
 
-Swagger disponible sur http://127.0.0.1:8000/docs
+La clé API est lue depuis `config/dev/.env`, jamais intégrée à l'image. Au premier
+démarrage, si `vector_db/` est vide dans le volume `vector_db_data`, l'index est
+construit automatiquement (événements parisiens à partir de 2026-01-01). Le cache
+Hugging Face est persisté dans le volume `hf_cache` pour éviter de retélécharger le
+modèle d'embedding (~1,2 Go) à chaque redémarrage.
 
-## Lancement avec Docker
-
-### Build de l'image
-
-```bash
-docker build -t rag-events-api .
-```
-
-### Run
-
-La clé API est fournie au lancement, jamais intégrée à l'image. Un volume persiste
-`vector_db/` entre les redémarrages : au premier démarrage, si `vector_db/` est vide,
-l'index est construit automatiquement (événements parisiens à partir de 2026-01-01).
-Un second volume persiste le cache Hugging Face (`hf_cache`) pour éviter de
-retélécharger le modèle d'embedding (~8 Go) à chaque redémarrage.
-
-```bash
-docker run -p 8000:8000 -e MISTRAL_API_KEY=votre_clé_api -v vector_db_data:/app/vector_db -v hf_cache:/root/.cache/huggingface rag-events-api
-```
-
-Sous PowerShell (Windows), pour répartir la commande sur plusieurs lignes,
-
-```powershell
-docker run -p 8000:8000 `
-  -e MISTRAL_API_KEY=votre_clé_api `
-  -v vector_db_data:/app/vector_db `
-  -v hf_cache:/root/.cache/huggingface `
-  rag-events-api
-```
-
-L'API est disponible sur http://127.0.0.1:8000. Le volume nommé `vector_db_data`
-persiste l'index entre les redémarrages (un `docker run` ultérieur réutilisant ce
-volume ne reconstruit pas la base).
+L'API est disponible sur http://127.0.0.1:8000, Swagger sur http://127.0.0.1:8000/docs.
 
 ## Endpoints API
 
@@ -121,7 +89,7 @@ Suivre la progression avec `GET /status` (statut `building` puis `ready`).
 
 | Variable          | Description                                    |
 | ----------------- | ----------------------------------------------- |
-| `MISTRAL_API_KEY` | Clé API Mistral, utilisée pour le LLM de génération |
+| `MISTRAL_API_KEY` | Clé API Mistral, utilisée pour le LLM de génération et pour les LLM juges des tests RAGAs |
 
 ## Tests
 
