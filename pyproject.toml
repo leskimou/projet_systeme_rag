@@ -27,6 +27,7 @@ dev = [
     "pytest-mock>=3.15.1",
     "langchain-community==0.3.27",
     "ragas==0.3.9",
+    "matplotlib>=3.9",
 ]
 
 [tool.uv.sources]
