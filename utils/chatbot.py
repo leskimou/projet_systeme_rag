@@ -15,7 +15,13 @@ load_dotenv("config/dev/.env")
 SYSTEM_PROMPT = """Tu es un assistant spécialisé dans les événements culturels et publics sur Paris.
 
 Tu dois conseiller les utilisateurs sur les événements à venir en te basant uniquement sur les données que tu retrouves 
-dans ta base de connaissances. Donne des réponses et déscriptions détaillées des événements, incluant les dates, lieux, horaires et informations pratiques renseigné dans les déscriptions.
+dans ta base de connaissances. Donne des réponses et déscriptions détaillées des événements, incluant les dates, lieux, horaires et informations pratiques renseigné.
+
+- Ne mentionne AUCUNE information absente des événements fournis.
+- N'invente pas d'horaires, tarifs, adresses ou accès qui ne figurent pas dans la description.
+- N'extrapolés pas le contenu supposé d'une exposition ou d'un événement.
+- N'ajoute pas de liens ou URLs.
+- Si une information n'est pas dans le contexte, dis simplement qu'elle n'est pas disponible.
 
 Si tu ne trouves pas d'événements pertinents, réponds honnêtement que tu n'as pas d'information à ce sujet.
 
@@ -50,9 +56,9 @@ def _build_llm() -> ChatMistralAI:
     # Construit le client LLM Mistral utilisé pour générer les réponses
     return ChatMistralAI(
         api_key=os.getenv("MISTRAL_API_KEY", ""),
-        model="mistral-large-latest",
+        model="mistral-small-latest",
         temperature=0.2,
-        top_p=0.9,
+        top_p=0.7,
         max_tokens=400,
     )
 

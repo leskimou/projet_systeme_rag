@@ -1,15 +1,22 @@
 import threading
 
 from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
+from fastapi.responses import JSONResponse
+from pydantic import BaseModel, Field
 
 from utils.chatbot import ask
 from utils.indexer import fetch_events, build_vectorstore, events_to_dataframe
+
+
+class _UTF8JSONResponse(JSONResponse):
+    media_type = "application/json; charset=utf-8"
+
 
 app = FastAPI(
     title="RAG Events API",
     description="API REST pour interroger et reconstruire la base d'événements culturels parisiens.",
     version="0.1.0",
+    default_response_class=_UTF8JSONResponse,
 )
 
 rebuild_state: dict = {
@@ -22,7 +29,7 @@ _rebuild_lock = threading.Lock()
 
 
 class AskRequest(BaseModel):
-    question: str
+    question: str = Field(..., min_length=1)
 
 
 class AskResponse(BaseModel):
